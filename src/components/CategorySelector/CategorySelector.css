@@ -1,0 +1,155 @@
+:root {
+    /* Re-using variables from the previous light theme */
+    --bg-primary: #f8f9fa; /* Light background */
+    --bg-secondary: #e9ecef;
+    --bg-tertiary: #dee2e6;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f1f3f5;
+
+    --text-primary: #212529; /* Darker text for contrast */
+    --text-secondary: #495057;
+    --text-muted: #6c757d;
+
+    --border-color: #ced4da;
+
+    --primary-color: #007bff; /* Blue */
+    --primary-dark: #0056b3; /* A slightly darker blue for active state gradient */
+    --secondary-color: #6f42c1; /* Purple */
+    --accent-color: #20c997; /* Teal */
+
+    --shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.05);
+
+    --border-radius: 0.25rem;
+    --border-radius-lg: 0.5rem;
+
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.75rem;
+    --font-size-2xl: 2.25rem;
+    --font-size-3xl: 3rem;
+    --font-size-4xl: 4rem;
+
+    --transition-normal: 0.3s ease-in-out;
+    --transition-slow: 0.6s ease-in-out;
+}
+
+.category-selector {
+    margin-bottom: var(--spacing-2xl);
+    padding: var(--spacing-md); /* Added some padding for overall spacing */
+}
+
+.category-title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-primary);
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted minmax for flexibility */
+    gap: var(--spacing-md);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.category-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none; /* Ensure it looks like a button even if it's an <a> tag */
+}
+
+.category-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); /* Lighter shimmer for light theme */
+    transition: left var(--transition-slow);
+}
+
+.category-button:hover::before {
+    left: 100%;
+}
+
+.category-button:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-lg);
+    color: var(--primary-color); /* Highlight text on hover */
+}
+
+.category-button.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); /* Using primary-dark for gradient */
+    border-color: var(--primary-color);
+    color: #ffffff; /* White text for active button */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.category-button.active:hover {
+    transform: translateY(-6px);
+    color: #ffffff; /* Keep white text on active hover */
+}
+
+.category-icon {
+    font-size: var(--font-size-3xl);
+    transition: transform var(--transition-normal), color var(--transition-normal); /* Add color transition */
+    color: var(--text-secondary); /* Default icon color */
+}
+
+.category-button:hover .category-icon {
+    transform: scale(1.2) rotate(5deg);
+    color: var(--primary-color); /* Icon color on hover */
+}
+
+.category-button.active .category-icon {
+    color: #ffffff; /* White icon for active button */
+}
+
+
+.category-label {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+
+    .category-button {
+        padding: var(--spacing-md);
+    }
+
+    .category-icon {
+        font-size: var(--font-size-2xl);
+    }
+
+    .category-label {
+        font-size: var(--font-size-base);
+    }
+}

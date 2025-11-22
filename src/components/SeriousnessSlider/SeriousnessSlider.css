@@ -1,0 +1,231 @@
+:root {
+    /* Re-using variables from the previous light theme */
+    --bg-primary: #f8f9fa; /* Light background */
+    --bg-secondary: #e9ecef;
+    --bg-tertiary: #dee2e6;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f1f3f5;
+
+    --text-primary: #212529; /* Darker text for contrast */
+    --text-secondary: #495057;
+    --text-muted: #6c757d;
+
+    --border-color: #ced4da;
+
+    --primary-color: #007bff; /* Blue */
+    --primary-dark: #0056b3; /* A slightly darker blue for gradients */
+    --secondary-color: #6f42c1; /* Purple */
+    --accent-color: #20c997; /* Teal */
+
+    --shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.05);
+
+    --border-radius: 0.25rem;
+    --border-radius-lg: 0.5rem;
+
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+
+    --font-size-xs: 0.75rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.75rem;
+    --font-size-2xl: 2.25rem;
+    --font-size-3xl: 3rem;
+    --font-size-4xl: 4rem;
+
+    --transition-normal: 0.3s ease-in-out;
+    --transition-slow: 0.6s ease-in-out;
+}
+
+.seriousness-slider {
+    margin-bottom: var(--spacing-2xl);
+    padding: var(--spacing-xl);
+    background: var(--bg-card);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md); /* Added shadow for consistency */
+}
+
+.slider-title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-primary);
+}
+
+.slider-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.slider-wrapper {
+    position: relative;
+    margin-bottom: var(--spacing-lg);
+}
+
+.slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: transparent; /* Make slider background transparent to show track */
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    z-index: 2;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.slider::-webkit-slider-runnable-track {
+    background: var(--bg-tertiary); /* Full track background */
+    border-radius: 4px;
+    height: 8px;
+}
+
+.slider::-moz-range-track {
+    background: var(--bg-tertiary); /* Full track background */
+    border-radius: 4px;
+    height: 8px;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--slider-color, var(--primary-color));
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    margin-top: -8px; /* Adjust thumb position to center it on the track */
+}
+
+.slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: var(--shadow-lg);
+}
+
+.slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--slider-color, var(--primary-color));
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+}
+
+.slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Fallback for browsers that don't support custom track styling or to ensure full track is visible */
+.slider-track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: var(--bg-tertiary); /* Ensure full track is visible underneath */
+    border-radius: 4px;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.slider-progress {
+    height: 100%;
+    border-radius: 4px;
+    transition: all var(--transition-normal);
+    position: absolute; /* Position over the track */
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); /* Use a gradient for progress */
+    z-index: 1;
+    overflow: hidden; /* For shimmer effect */
+}
+
+.slider-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); /* Lighter shimmer */
+    animation: shimmer 2s infinite; /* Ensure shimmer is defined */
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.slider-labels {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-sm);
+    text-align: center;
+    color: var(--text-secondary); /* Default label color */
+}
+
+.slider-label {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all var(--transition-normal);
+    padding: var(--spacing-xs);
+    border-radius: var(--border-radius);
+    color: inherit; /* Inherit color from parent */
+}
+
+.slider-label.active {
+    font-weight: 700;
+    transform: scale(1.05);
+    color: var(--primary-color); /* Highlight active label */
+}
+
+.current-level {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary); /* Ensure text is readable */
+}
+
+.level-indicator {
+    font-size: var(--font-size-lg);
+    color: var(--primary-color); /* Highlight the level indicator with primary color */
+    font-weight: 600; /* Make it a bit bolder */
+}
+
+@media (max-width: 768px) {
+    .seriousness-slider {
+        padding: var(--spacing-lg);
+    }
+
+    .slider-labels {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xs);
+    }
+
+    .slider-label {
+        font-size: var(--font-size-xs);
+    }
+
+    .level-indicator {
+        font-size: var(--font-size-base);
+    }
+}
